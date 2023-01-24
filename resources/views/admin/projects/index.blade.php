@@ -13,6 +13,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Client_name</th>
                 <th scope="col">Type</th>
+                <th scope="col">Technologies</th>
                 <th scope="col">Summary</th>
                 <th scope="col">Image</th>
               </tr>
@@ -24,6 +25,13 @@
                 <th scope="row">{{$project->id}}</th>
                 <td>{{$project->name}}</td>
                 <td>{{$project->client_name}}</td>
+                <td>
+                    @forelse ($project->technologies as $technology)
+                    <span class="badge text-bg-danger">{{$project->category->type}}</span>
+                    @empty
+
+                    @endforelse
+                </td>
                 <td><span class="badge text-bg-primary">{{$project->category?->type}}</span></td>
                 <td>{{$project->summary}}</td>
                 <td><img class="thumb" src="{{ $project->cover_image ? asset('storage/' . $project->cover_image) : 'https://img.freepik.com/free-vector/illustration-data-folder-icon_53876-6329.jpg?w=2000'}}" alt=""></td>
