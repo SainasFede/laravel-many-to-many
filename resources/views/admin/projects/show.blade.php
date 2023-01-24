@@ -12,7 +12,15 @@
             <img src="{{ $project->cover_image ? asset('storage/' . $project->cover_image) : 'https://img.freepik.com/free-vector/illustration-data-folder-icon_53876-6329.jpg?w=2000'}}" class="card-img-top" alt="{{$project->name}}">
             <div class="card-body">
               <h5 class="card-title">{{$project->name}}</h5>
-              <h6 class="card-title">{{$project->category->type}}</h6>
+              @if ($project->category)
+                <h6>Categoria: {{$project->category->type}}</h6>
+              @endif
+
+              @if ($project->technologies)
+                @foreach ($project->technologies as $technology)
+                    <h6>Tecnologia: {{$technology->type}}</h6>
+                @endforeach
+              @endif
               <p class="card-text">{{$project->summary}}</p>
               <a class="my-1 btn btn-primary" href="{{route('admin.projects.show', $project)}}">Show</a>
                 <a class="my-1 btn btn-warning" href="{{route('admin.projects.edit', $project)}}">Edit</a>

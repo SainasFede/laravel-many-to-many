@@ -84,6 +84,26 @@
             </div>
 
             <div class="mb-3">
+                <p for="date" class="form-label">Technologie</p>
+                @foreach ($technologies as $technology)
+                    <input type="checkbox"
+                    id="tag{{$loop->iteration}}"
+                    name="technologies[]"
+                    value="{{$technology->id}}"
+
+                    @if (!$errors->all() && $project->technologies->contains($technology))
+                        checked
+                    @elseif ($errors->all() && in_array($technology->id, old('technologies',[])))
+                        checked
+                    @endif
+
+                    >
+                    <label class="me-2" for="technologies{{$loop->iteration}}">{{$technology->type}}</label>
+                @endforeach
+
+            </div>
+
+            <div class="mb-3">
                 <label for="price" class="form-label"><strong>Nome Cliente</strong></label>
                 <input type="text"
                 name="client_name"

@@ -12,8 +12,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Client_name</th>
-                <th scope="col">Type</th>
                 <th scope="col">Technologies</th>
+                <th scope="col">Type</th>
                 <th scope="col">Summary</th>
                 <th scope="col">Image</th>
               </tr>
@@ -27,7 +27,7 @@
                 <td>{{$project->client_name}}</td>
                 <td>
                     @forelse ($project->technologies as $technology)
-                    <span class="badge text-bg-danger">{{$project->category->type}}</span>
+                    <span class="badge text-bg-danger">{{$technology->type}}</span>
                     @empty
 
                     @endforelse

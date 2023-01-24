@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProjectRequest;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -38,8 +39,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
+
         $categories = Category::all();
-        return view('admin.projects.create', compact('categories'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('categories', 'technologies'));
     }
 
     /**
@@ -62,6 +65,10 @@ class ProjectController extends Controller
         $new_item->fill($data);
         $new_item->save();
 
+        if(array_key_exists('technologies', $data)){
+            $new_item->technologies()->attach($data['technologies']);
+
+        }
         return redirect(route('admin.projects.index'));
     }
 
@@ -73,6 +80,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+
         return view('admin.projects.show', compact('project'));
     }
 
