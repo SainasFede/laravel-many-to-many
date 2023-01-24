@@ -87,7 +87,7 @@
                 <p for="date" class="form-label">Technologie</p>
                 @foreach ($technologies as $technology)
                     <input type="checkbox"
-                    id="tag{{$loop->iteration}}"
+                    id="technology-{{$loop->iteration}}"
                     name="technologies[]"
                     value="{{$technology->id}}"
 
@@ -98,7 +98,8 @@
                     @endif
 
                     >
-                    <label class="me-2" for="technologies{{$loop->iteration}}">{{$technology->type}}</label>
+
+                    <label class="me-2" for="technology-{{$loop->iteration}}">{{$technology->type}}</label>
                 @endforeach
 
             </div>

@@ -67,7 +67,6 @@ class ProjectController extends Controller
 
         if(array_key_exists('technologies', $data)){
             $new_item->technologies()->attach($data['technologies']);
-
         }
         return redirect(route('admin.projects.index'));
     }
@@ -80,8 +79,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-
-        return view('admin.projects.show', compact('project'));
+        $technologies = Technology::all();
+        $categories = Category::all();
+        return view('admin.projects.show', compact('project', 'technologies', 'categories'));
     }
 
     /**
@@ -94,7 +94,8 @@ class ProjectController extends Controller
 
     {
         $categories = Category::all();
-        return view('admin.projects.edit', compact('project', 'categories'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'categories', 'technologies'));
     }
 
     /**
@@ -122,7 +123,14 @@ class ProjectController extends Controller
             $data['cover_image'] = Storage::put('uploads', $data['cover_image']);
         }
 
+
         $project->update($data);
+
+        if(array_key_exists('technologies', $data)){
+            $project->technologies()->sync($data['technologies']);
+        }else{
+            $project->technologies()->detach();
+        }
 
         return redirect(route('admin.projects.show', $project));
     }
